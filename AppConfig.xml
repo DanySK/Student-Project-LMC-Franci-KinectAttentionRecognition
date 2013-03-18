@@ -1,0 +1,15 @@
+<appParam>
+
+	<attentionParam>
+	    <maxUser>6</maxUser>
+	    <tf>15</tf>
+	    <necessaryTime>5000</necessaryTime>
+	    
+	</attentionParam>
+	
+	<visualizationParam active="true">
+	    <skeleton>true</skeleton>
+	    <rgb>false</rgb>
+	    <printId>true</printId>
+	</visualizationParam>
+</appParam>

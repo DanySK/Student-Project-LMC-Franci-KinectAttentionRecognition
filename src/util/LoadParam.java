@@ -43,6 +43,7 @@ public class LoadParam {
 			tf = Integer.parseInt(list.getElementsByTagName("tf").item(0).getFirstChild().getNodeValue());
 			time = Long.parseLong(list.getElementsByTagName("necessaryTime").item(0).getFirstChild().getNodeValue());
 			
+			
 //			System.out.println(stf+"  "+time);
 			
 			NodeList visParam = root.getElementsByTagName("visualizationParam");

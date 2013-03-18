@@ -81,6 +81,7 @@ public class KinectManager {
 	 * @Constructor
 	 */
 	public KinectManager(){
+		//prova
 		LoadParam lp = new LoadParam();
 		lp.readParam(APP_CONFIG_XML);
 		draw = lp.getDraw();

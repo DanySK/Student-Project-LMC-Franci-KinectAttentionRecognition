@@ -57,7 +57,7 @@ public class ShoulderDirectionCalculator {
 //		System.out.println("[SHOULDER] ANGOLO: "+angle);
 		
 //		attentionIndex = 14-Math.round(angle*14/90);
-		if(angle<15){
+		if(angle<w.get("th")){
 			attentionIndex=w.get("shoulderDirection");
 		}else{
 			attentionIndex=w.get("shoulderDirection")*15/100;

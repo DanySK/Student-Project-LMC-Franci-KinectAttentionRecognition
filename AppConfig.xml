@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <appParam>
     <attentionParam>
-        <maxUser>6</maxUser>
+        <maxUser>4</maxUser>
         <tf>15</tf>
         <necessaryTime>5000</necessaryTime>
         <featureWeight>
@@ -18,8 +18,10 @@
                 <largeBoS>7</largeBoS>
                 <smallBoS>7</smallBoS>
 			</pose>
-			<shoulderDirection>14</shoulderDirection>
-			
+			<shoulder>
+			    <th>15</th>
+				<shoulderDirection>15</shoulderDirection>
+			</shoulder>
 			<speed>
 			    <stationary>14</stationary>
 			    <slow>3</slow>

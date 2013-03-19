@@ -21,6 +21,7 @@ Description:
 	-<maxUser> indicates the maximum number of detectable users. 
 	-<tf> indicates after how many frames must be calculated the attention index.
 	-<necessaryTime> indicates the time required to read a possible text on the screen.
+	-<featureWeight> every child of this node indicates the attention index of a particular feature
 -in the <visualizationParam> section:
 	-<skeleton> indicates if it's enabled the drawing of the skelenton.
 	-<rgb> indicates if it's enabled the rgb capture.

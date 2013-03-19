@@ -1,5 +1,7 @@
 package featureExtractor;
 
+import java.util.HashMap;
+
 import util.PosAndTime;
 import util.Vector3D;
 
@@ -13,11 +15,14 @@ public class SpeedCalculator {
 	private PosAndTime pt[];
 	private boolean first;
 	private int attentionIndex;
+	private HashMap<String, Integer> w;
 	
 	/**
+	 * @param w 
 	 * @Constructor
 	 */
-	public SpeedCalculator(){
+	public SpeedCalculator(HashMap<String, Integer> w){
+		this.w=w;
 		pt = new PosAndTime[2];
 		first=true;
 	}
@@ -55,14 +60,14 @@ public class SpeedCalculator {
 //			System.out.println("[SPEED] SPEED: "+speed);
 			
 			if(speed<0.2){
-				attentionIndex=14;
-//					System.out.println("UTENTE FERMO");
+				attentionIndex=w.get("stationary");
+//					System.out.println("UTENTE FERMO "+attentionIndex);
 			}else if(speed>=0.2 && speed<1){
-				attentionIndex=3;
-//					System.out.println("UTENTE LENTO");
+				attentionIndex=w.get("slow");
+//					System.out.println("UTENTE LENTO "+attentionIndex);
 			}else if(speed>=1){ 
-				attentionIndex=1;
-//					System.out.println("UTENTE VELOCE");
+				attentionIndex=w.get("fast");
+//					System.out.println("UTENTE VELOCE "+attentionIndex);
 			}
 			
 			pt[0]=pt[1];

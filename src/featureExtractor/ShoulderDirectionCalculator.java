@@ -1,5 +1,7 @@
 package featureExtractor;
 
+import java.util.HashMap;
+
 import util.PosAndTime;
 import util.Vector3D;
 
@@ -12,11 +14,14 @@ public class ShoulderDirectionCalculator {
 	private PosAndTime pt[];
 	private float angle;
 	private int attentionIndex;
+	private HashMap<String, Integer> w;
 	
 	/**
+	 * @param w 
 	 * @Constructor
 	 */
-	public ShoulderDirectionCalculator(){
+	public ShoulderDirectionCalculator(HashMap<String, Integer> w){
+		this.w=w;
 		pt = new PosAndTime[3];
 	}
 	
@@ -53,9 +58,9 @@ public class ShoulderDirectionCalculator {
 		
 //		attentionIndex = 14-Math.round(angle*14/90);
 		if(angle<15){
-			attentionIndex=14;
+			attentionIndex=w.get("shoulderDirection");
 		}else{
-			attentionIndex=2;
+			attentionIndex=w.get("shoulderDirection")*15/100;
 		}
 		
 		return attentionIndex;

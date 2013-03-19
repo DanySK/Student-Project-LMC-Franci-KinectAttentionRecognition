@@ -1,5 +1,7 @@
 package featureExtractor;
 
+import java.util.HashMap;
+
 /**Calculates the time that the user spent in front of the camera.
  * 
  * @author Silvia Franci
@@ -10,11 +12,13 @@ public class TimeCalculator {
 	private boolean first;
 	private int attentionIndex;
 	private long necessaryTime;
-	
+	private HashMap<String, Integer> w;
 	/**
+	 * @param w 
 	 * @Constructor
 	 */
-	public TimeCalculator(long necessaryTime){
+	public TimeCalculator(long necessaryTime, HashMap<String, Integer> w){
+		this.w=w;
 		this.necessaryTime=necessaryTime;
 		time = new long[2];
 		first=true;
@@ -35,7 +39,7 @@ public class TimeCalculator {
 			
 //			System.out.println("[TIME] presente da :"+time[1]+" millisec");
 			
-			attentionIndex = (int) (time[1]*14/necessaryTime);
+			attentionIndex = (int) (time[1]*w.get("time")/necessaryTime);
 			
 			return attentionIndex;
 		}	

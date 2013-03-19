@@ -1,5 +1,7 @@
 package featureExtractor;
 
+import java.util.HashMap;
+
 import org.OpenNI.Point3D;
 
 import util.Vector3D;
@@ -10,7 +12,16 @@ import util.Vector3D;
  */
 public class AttentionPoseDetector {
 	private Vector3D headRightH,headLeftH,torsoRightE,torsoLeftE;
+	private HashMap<String, Integer> w;
 	
+	/**
+	 * @Constructor
+	 * @param hashMap
+	 */
+	public AttentionPoseDetector(HashMap<String, Integer> w) {
+		this.w=w;
+	}
+
 	/**
 	 * Detect if the user is in an attentive pose
 	 * @param head Head 3D coordinate
@@ -36,7 +47,7 @@ public class AttentionPoseDetector {
 		torsoLeftE = new Vector3D(torso,leftE);
 		
 		if((headRightH.getModule()<300 && torsoRightE.getModule()<250) || (headLeftH.getModule()<300 && torsoLeftE.getModule()<250)){
-			return 2;
+			return w.get("attentivePose");
 		}else{
 			return 0;
 		}

@@ -65,6 +65,7 @@ public class KinectManager {
 	private boolean userDataReady[],stop[];
 	private int[] tf;
 	private UserData[] data;
+	private HashMap<String, HashMap<String,Integer>> weights;
 	
 	SkeletonJoint marker[] = {	SkeletonJoint.HEAD,
 			SkeletonJoint.NECK,
@@ -87,6 +88,7 @@ public class KinectManager {
 		TF = lp.getTf();
 		necessaryTime = lp.getTime();
 		MAX_USER=lp.getMaxUser();
+		weights=lp.getWheights();
 		
 		userDataReady = new boolean[MAX_USER];
 		tf = new int[MAX_USER];
@@ -355,6 +357,10 @@ public class KinectManager {
 		stopOne(index);
 		
 		attFrame.lostUser(index);
+	}
+	
+	public HashMap<String, HashMap<String,Integer>> getWeights(){
+		return weights;
 	}
 	
 	public void log(String s){

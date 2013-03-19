@@ -1,16 +1,15 @@
 package util;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 /**
  * Class to read the application paramenter in the configuration file
  * 
@@ -19,32 +18,67 @@ import org.xml.sax.SAXException;
  */
 public class LoadParam {
 	private int tf,maxUser;
-	private long time;
+//	private int attPose,singleSupp,doubleSupp,standing,sitting,leftImb,rightImb,centered,nBoS,largeBoS,smallBos,shoulder,stat,slow,fast,time;
+	private long necessaryTime;
 	private boolean draw,skel,rgb,id;
+	private HashMap<String, HashMap<String,Integer>> w;
+	
+	/**
+	 * @Constructor
+	 */
+	public LoadParam(){
+		w = new HashMap<String, HashMap<String,Integer>>();
+	}
 	
 	/**
 	 * Extract the parameters from the xml file in input
 	 * @param file Input file
 	 */
 	public void readParam(String file){
-		
+		HashMap<String, Integer> tmp;
         try {
         	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); 
             DocumentBuilder builder = factory.newDocumentBuilder(); 
 			Document doc = builder.parse(new File(file));
-			
+			doc.normalize();
 			Element root = doc.getDocumentElement();
 			
 			NodeList attParam = root.getElementsByTagName("attentionParam");
-			
+						
 			Element list = (Element) attParam.item(0);
 			
 			maxUser = Integer.parseInt(list.getElementsByTagName("maxUser").item(0).getFirstChild().getNodeValue());
 			tf = Integer.parseInt(list.getElementsByTagName("tf").item(0).getFirstChild().getNodeValue());
-			time = Long.parseLong(list.getElementsByTagName("necessaryTime").item(0).getFirstChild().getNodeValue());
+			necessaryTime = Long.parseLong(list.getElementsByTagName("necessaryTime").item(0).getFirstChild().getNodeValue());
 			
+			NodeList feature = list.getElementsByTagName("featureWeight");
 			
-//			System.out.println(stf+"  "+time);
+			for(int i=0;i<feature.item(0).getChildNodes().getLength();i++){
+				tmp = new HashMap<String, Integer>();
+				Node n = feature.item(0).getChildNodes().item(i);
+				
+				if(!n.getNodeName().equals("#text")){
+//					System.out.println(s+"   "+n.getChildNodes().getLength());
+					if(n.getChildNodes().getLength()==1){
+//						System.out.println(n.getTextContent());
+						tmp.put(n.getNodeName(), Integer.parseInt(n.getTextContent()));
+					}else{
+						for(int j=0;j<n.getChildNodes().getLength();j++){
+							Node n2 = n.getChildNodes().item(j);
+//							String s2 = n.getChildNodes().item(j).getNodeName();
+							if(!n2.getNodeName().equals("#text")){
+//								System.out.println(n2.getNodeName());
+//								System.out.println(n2.getTextContent());
+								tmp.put(n2.getNodeName(), Integer.parseInt(n2.getTextContent()));
+							}
+						}
+					}
+//					System.out.println(n.getChildNodes().getLength());
+					
+					w.put(n.getNodeName(), tmp);
+				}
+				
+			}
 			
 			NodeList visParam = root.getElementsByTagName("visualizationParam");
 //			System.out.println("Vis: ");
@@ -52,7 +86,7 @@ public class LoadParam {
 			list = (Element)visParam.item(0);
 			
 			draw = Boolean.parseBoolean(list.getAttribute("active"));
-			System.out.println(draw);
+//			System.out.println(draw);
 			
 			if(draw){
 				skel = Boolean.parseBoolean(list.getElementsByTagName("skeleton").item(0).getFirstChild().getNodeValue());
@@ -61,13 +95,9 @@ public class LoadParam {
 //				System.out.println(skel+"  "+rgb+"   "+id);
 			}
 			
-		} catch (SAXException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 	
 	/**
@@ -123,7 +153,11 @@ public class LoadParam {
 	 * @return Time required to read a possible text on the screen
 	 */
 	public long getTime(){
-		return time;
+		return necessaryTime;
+	}
+	
+	public HashMap<String, HashMap<String,Integer>> getWheights(){
+		return w;
 	}
 	
 	public static void main(String[] args){

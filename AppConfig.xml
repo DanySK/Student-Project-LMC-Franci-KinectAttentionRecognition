@@ -1,36 +1,36 @@
+<?xml version="1.0"?>
 <appParam>
-
-	<attentionParam>
-	    <maxUser>6</maxUser>
-	    <tf>15</tf>
-	    <necessaryTime>5000</necessaryTime>
-	    <featureWeight>
-	        <attentivePose>2</attentivePose>
-	        <pose>
-	            <singleSupport>7</singleSupport>
-	            <doubleSupport>14</doubleSupport>
-	            <standing>14</standing>
-	            <sitting>28</sitting>
-	            <leftImbalance>7</leftImbalance>
-	            <rightImbalance>7</rightImbalance>
-	            <centered>14</centered>
-	            <normalBoS>14</normalBoS>
-	            <largeBoS>7</largeBoS>
-	            <smallBoS>7</smallBoS>
-	        </pose>
-	        <shoulderDirection>14</shoulderDirection>
-	        <speed>
-	            <stationary>14</stationary>
-	            <slow>3</slow>
-	            <fast>1</fast>
-	        </speed>
-	        <time>14</time>
+    <attentionParam>
+        <maxUser>6</maxUser>
+        <tf>15</tf>
+        <necessaryTime>5000</necessaryTime>
+        <featureWeight>
+            <attentivePose>2</attentivePose>
+            <pose>
+                <singleSupport>7</singleSupport>
+                <doubleSupport>14</doubleSupport>
+                <standing>14</standing>
+                <sitting>28</sitting>
+                <leftImbalance>7</leftImbalance>
+                <rightImbalance>7</rightImbalance>
+                <centered>14</centered>
+                <normalBoS>14</normalBoS>
+                <largeBoS>7</largeBoS>
+                <smallBoS>7</smallBoS>
+			</pose>
+			<shoulderDirection>14</shoulderDirection>
+			
+			<speed>
+			    <stationary>14</stationary>
+			    <slow>3</slow>
+			    <fast>1</fast>
+		    </speed>
+		    <time>14</time>
 	    </featureWeight>
-	</attentionParam>
-	
-	<visualizationParam active="true">
-	    <skeleton>true</skeleton>
-	    <rgb>false</rgb>
-	    <printId>true</printId>
-	</visualizationParam>
-</appParam>
+    </attentionParam>
+
+	<visualizationParam active="false">
+		<skeleton>true</skeleton>
+		<rgb>false</rgb>
+		<printId>true</printId>
+	</visualizationParam></appParam>

@@ -1,5 +1,7 @@
 package featureExtractor;
 
+import java.util.HashMap;
+
 import org.OpenNI.Point3D;
 
 import util.PosAndTime;
@@ -16,11 +18,14 @@ public class PoseParameterCalculator {
 	private float userHeight, shoulderDist,baseSupport, diffY, diffZ;
 	private Point3D pt[],com;
 	private int attentionIndex;
+	private HashMap<String, Integer> w;
 	
 	/**
+	 * @param w 
 	 * @Constructor
 	 */
-	public PoseParameterCalculator(){
+	public PoseParameterCalculator(HashMap<String, Integer> w){
+		this.w=w;
 		pt = new Point3D[4];
 		first=true;
 	}
@@ -70,17 +75,17 @@ public class PoseParameterCalculator {
 		float tmp = (dr+dl)/2;
 		
 		if(tmp<(userHeight*90/100)){
-			attentionIndex+=28;
+			attentionIndex+=w.get("sitting");
 //			System.out.println("[SITCALC] user: è seduto");
 		}else{
-			attentionIndex+=14;
+			attentionIndex+=w.get("standing");
 //			System.out.println("[SITCALC] user: è in piedi");
 			
 			if(diffY>25 && diffZ<100){
-				attentionIndex+=7;
+				attentionIndex+=w.get("singleSupport");
 //				System.out.println("SINGLE SUPPORT");
 			}else{
-				attentionIndex+=14;
+				attentionIndex+=w.get("doubleSupport");
 //				System.out.println("DOUBLE SUPPORT");
 			}
 		}		
@@ -90,24 +95,24 @@ public class PoseParameterCalculator {
 		float perc = Math.abs(scost*100/mediaFoot);
 		
 		if(scost>0 && perc>20){
-			attentionIndex+=7;
+			attentionIndex+=w.get("leftImbalance");
 //			System.out.println("SBILANCIAMENTO A SINISTRA");
 		}else if(scost<0 && perc>20){
-			attentionIndex+=7;
+			attentionIndex+=w.get("rightImbalance");
 //			System.out.println("SBILANCIAMENTO A DESTRA");
 		}else{
-			attentionIndex+=14;
+			attentionIndex+=w.get("centered");
 //			System.out.println("PESO CENTRATO");
 		}
 		
 		if(baseSupport<(shoulderDist*60/100)){
-			attentionIndex+=7; //piccola
+			attentionIndex+=w.get("smallBoS"); //piccola
 //			System.out.println("BOS PICCOLA");
 		}else if(baseSupport>=(shoulderDist*60/100) && baseSupport<(shoulderDist+shoulderDist*10/100)){
-			attentionIndex+=14; //normale
+			attentionIndex+=w.get("normalBoS"); //normale
 //			System.out.println("BOS NORMALE");
 		}else{
-			attentionIndex+=7; //grande
+			attentionIndex+=w.get("largeBoS"); //grande
 //			System.out.println("BOS GRANDE");
 		}
 		

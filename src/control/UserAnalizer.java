@@ -49,12 +49,12 @@ public class UserAnalizer extends Thread{
 		timeReached=false;
 		running = true;
 		
-		speedCalc = new SpeedCalculator();
-		shoulderCalc = new ShoulderDirectionCalculator();
-		timeCalc = new TimeCalculator(necessaryTime);
-		poseCalc = new PoseParameterCalculator();
+		speedCalc = new SpeedCalculator(manager.getWeights().get("speed"));
+		shoulderCalc = new ShoulderDirectionCalculator(manager.getWeights().get("shoulderDirection")); 
+		timeCalc = new TimeCalculator(necessaryTime,manager.getWeights().get("time"));
+		poseCalc = new PoseParameterCalculator(manager.getWeights().get("pose")); 
 		lostDetect = new LostUserDetector();
-		poseDetect = new AttentionPoseDetector();
+		poseDetect = new AttentionPoseDetector(manager.getWeights().get("attentivePose"));
 	}
 	
 	@Override
